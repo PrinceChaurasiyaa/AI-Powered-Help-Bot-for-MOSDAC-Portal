@@ -1,2 +1,5 @@
 MOSDACvenv/
 MOSDACvenv
+testing.py
+*__pycache__
+output

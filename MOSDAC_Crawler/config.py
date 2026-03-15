@@ -88,6 +88,7 @@ DOCUMENTS_DIR   = OUTPUT_DIR / "documents"
 DATA_DIR        = OUTPUT_DIR / "data"
 DB_PATH         = DATA_DIR / "mosdac_crawler.db"
 CRAWL_LOG_PATH  = DATA_DIR / "crawl.log"
+TRAINIG_CRAWL_LOG_PATH = DATA_DIR / "training_crawl.log"
 VISITED_URLS_FILE = DATA_DIR / "visited_urls.txt"
 
 # Ensure all directories exist
