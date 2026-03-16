@@ -16,7 +16,7 @@ from pathlib import Path
 from typing import Optional
 from urllib.parse import urljoin, urlparse, urlunparse
 
-from ..config import (
+from config import (
     ALLOWED_DOMAINS,
     BASE_URL,
     EXCLUDED_URL_PATTERNS,
@@ -25,7 +25,7 @@ from ..config import (
     SUPPORTED_DOC_TYPES,
     JS_REQUIRED_PATTERNS
 )
-from ..utils.logger import get_logger
+from utils.logger import get_logger
 
 log = get_logger(__name__)
 
@@ -93,3 +93,15 @@ def need_javasripts(url: str) -> bool:
 
     lower = url.lower()
     return any(pat in lower for pat in JS_REQUIRED_PATTERNS)
+
+
+# =================================DEDUPLICATION ==========================================================
+
+def content_hash(text: str) -> str:
+    """SHA-256 hash of text content — used for deduplication."""
+    return hashlib.sha256(text.encode("utf-8", errors="replace")).hexdigest()
+
+
+def url_hash(url: str) -> str:
+    """MD5 hash of normalised URL — short unique key for DB storage."""
+    return hashlib.md5(url.encode()).hexdigest()

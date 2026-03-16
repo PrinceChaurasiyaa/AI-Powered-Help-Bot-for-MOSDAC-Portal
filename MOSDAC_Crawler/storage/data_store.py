@@ -20,8 +20,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from ..config import DB_PATH
-from ..utils.logger import get_logger
+from config import DB_PATH
+from utils.logger import get_logger
 
 log = get_logger(__name__)
 
@@ -165,7 +165,7 @@ class DataStore:
             self._local.conn.row_factory = sqlite3.Row     # Rows behave like dictionaries.
         return self._local.conn
 
-    def _ini_db(self):
+    def _init_db(self):
         """Create all tables if they don't exist."""
         with sqlite3.connect(str(self.db_path)) as conn:
             conn.executescript(SCHEMA_SQL)
@@ -190,7 +190,7 @@ class DataStore:
             self.conn.execute(
                 """INSERT OR IGNORE INTO crawl_queue
                    (url, url_hash, status, depth, parent_url, added_at)
-                   VALUES (?, ?, 'pending', ?, ?, ?)"""
+                   VALUES (?, ?, 'pending', ?, ?, ?)""",
                 (url, url_hash, depth, parent_url, _now()),
             )
             self.conn.commit()
@@ -208,7 +208,7 @@ class DataStore:
                FROM crawl_queue
                WHERE status = 'pending'
                ORDER BY depth ASC, id ASC
-               LIMIT ?"""
+               LIMIT ?""",
             (batch_size,),
         ).fetchall()
         return [dict(r) for r in rows]
@@ -373,7 +373,7 @@ class DataStore:
             ).fetchall()
         return [dict(r) for r in rows]
     
-    def get_mission_stats(self) -> Dict[str: Any]:
+    def get_mission_stats(self) -> Dict[str, Any]:
         """
         Summary stats for mission_hierarchy table.
         Returns {mission_slug: {total, done, pending}} dict.
@@ -399,7 +399,7 @@ class DataStore:
 
     # ============ DOCUMENTS ===================================
 
-    def save_documents(self, data: Dict[str: Any]):
+    def save_documents(self, data: Dict[str, Any]):
         self.conn.execute(
             """INSERT OR REPLACE INTO documents
                (url, url_hash, filename, file_type, local_path,

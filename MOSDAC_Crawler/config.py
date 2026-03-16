@@ -1,3 +1,5 @@
+
+
 """
 config.py
 ─────────────────────────────────────────────────────────────────────────────
@@ -19,140 +21,67 @@ ALLOWED_DOMAINS = ["mosdac.gov.in"]
 SITEMAP_URL = "https://www.mosdac.gov.in/sitemap"
 
 # Explicit seed URLs (confirmed public, no-login, from real /sitemap HTML)
-# START_URLS = [
-#     # Core
-#     "https://www.mosdac.gov.in",
-#     "https://www.mosdac.gov.in/sitemap",
-#     "https://www.mosdac.gov.in/faq-page",       # Real URL — not /faq
-#     "https://www.mosdac.gov.in/help",
-#     "https://www.mosdac.gov.in/about-us",
-#     "https://www.mosdac.gov.in/contact-us",
-#     "https://www.mosdac.gov.in/atlases",
-#     "https://www.mosdac.gov.in/tools",
-#     "https://www.mosdac.gov.in/downloadapi-manual",
-#     "https://www.mosdac.gov.in/announcements",
-
-#     # Satellite Missions (all public, no login required)
-#     "https://www.mosdac.gov.in/insat-3dr",
-#     "https://www.mosdac.gov.in/insat-3d",
-#     "https://www.mosdac.gov.in/insat-3a",
-#     "https://www.mosdac.gov.in/insat-3ds",
-#     "https://www.mosdac.gov.in/kalpana-1",
-#     "https://www.mosdac.gov.in/megha-tropiques",
-#     "https://www.mosdac.gov.in/saral-altika",
-#     "https://www.mosdac.gov.in/oceansat-2",
-#     "https://www.mosdac.gov.in/oceansat-3",
-#     "https://www.mosdac.gov.in/scatsat-1",
-
-#     # Satellite Catalog
-#     "https://www.mosdac.gov.in/catalog/satellite.php",
-#     "https://www.mosdac.gov.in/catalog/insitu.php",
-#     "https://www.mosdac.gov.in/catalog/radar.php",
-
-#     # Open Data — Atmosphere
-#     "https://www.mosdac.gov.in/bayesian-based-mt-saphir-rainfall",
-#     "https://www.mosdac.gov.in/gps-derived-integrated-water-vapour",
-#     "https://www.mosdac.gov.in/gsmap-isro-rain",
-#     "https://www.mosdac.gov.in/meteosat8-cloud-properties",
-
-#     # Open Data — Land
-#     "https://www.mosdac.gov.in/3d-volumetric-terls-dwrproduct",
-#     "https://www.mosdac.gov.in/inland-water-height",
-#     "https://www.mosdac.gov.in/river-discharge",
-#     "https://www.mosdac.gov.in/soil-moisture-0",
-
-#     # Open Data — Ocean
-#     "https://www.mosdac.gov.in/global-ocean-surface-current",
-#     "https://www.mosdac.gov.in/high-resolution-sea-surface-salinity",
-#     "https://www.mosdac.gov.in/indian-mainland-coastal-product",
-#     "https://www.mosdac.gov.in/ocean-subsurface",
-#     "https://www.mosdac.gov.in/oceanic-eddies-detection",
-#     "https://www.mosdac.gov.in/sea-ice-occurrence-probability",
-#     "https://www.mosdac.gov.in/wave-based-renewable-energy",
-
-#     # Reports
-#     "https://www.mosdac.gov.in/insitu",
-#     "https://www.mosdac.gov.in/calibration-reports",
-#     "https://www.mosdac.gov.in/validation-reports",
-#     "https://www.mosdac.gov.in/data-quality",
-#     "https://www.mosdac.gov.in/weather-reports",
-#     "https://www.mosdac.gov.in/rss-feed",
-
-#     # Policies
-#     "https://www.mosdac.gov.in/copyright-policy",
-#     "https://www.mosdac.gov.in/data-access-policy",
-#     "https://www.mosdac.gov.in/hyperlink-policy",
-#     "https://www.mosdac.gov.in/privacy-policy",
-#     "https://www.mosdac.gov.in/website-policies",
-#     "https://www.mosdac.gov.in/terms-conditions",
-# ]
-
 START_URLS = [
-    # P1 — Critical Discovery
-    # "https://www.mosdac.gov.in",
-    # "https://www.mosdac.gov.in/sitemap",
-    # "https://www.mosdac.gov.in/catalog/satellite.php",
-    # "https://www.mosdac.gov.in/catalog/insitu.php",
-    # "https://www.mosdac.gov.in/catalog/radar.php",
+    # Core
+    "https://www.mosdac.gov.in",
+    "https://www.mosdac.gov.in/sitemap",
+    "https://www.mosdac.gov.in/faq-page",       # Real URL — not /faq
+    "https://www.mosdac.gov.in/help",
+    "https://www.mosdac.gov.in/about-us",
+    "https://www.mosdac.gov.in/contact-us",
+    "https://www.mosdac.gov.in/atlases",
+    "https://www.mosdac.gov.in/tools",
+    "https://www.mosdac.gov.in/downloadapi-manual",
+    "https://www.mosdac.gov.in/announcements",
 
-    # P2 — Active Operational Satellites
-    # "https://www.mosdac.gov.in/insat-3ds",
-    # "https://www.mosdac.gov.in/insat-3dr",
+    # Satellite Missions (all public, no login required)
+    "https://www.mosdac.gov.in/insat-3dr",
     "https://www.mosdac.gov.in/insat-3d",
-    # "https://www.mosdac.gov.in/oceansat-3",
-    # "https://www.mosdac.gov.in/scatsat-1",
+    "https://www.mosdac.gov.in/insat-3a",
+    "https://www.mosdac.gov.in/insat-3ds",
+    "https://www.mosdac.gov.in/kalpana-1",
+    "https://www.mosdac.gov.in/megha-tropiques",
+    "https://www.mosdac.gov.in/saral-altika",
+    "https://www.mosdac.gov.in/oceansat-2",
+    "https://www.mosdac.gov.in/oceansat-3",
+    "https://www.mosdac.gov.in/scatsat-1",
 
-    # # P3 — High-Value Open Datasets (Ocean & Atmosphere)
-    # "https://www.mosdac.gov.in/gsmap-isro-rain",
-    # "https://www.mosdac.gov.in/gps-derived-integrated-water-vapour",
-    # "https://www.mosdac.gov.in/bayesian-based-mt-saphir-rainfall",
-    # "https://www.mosdac.gov.in/meteosat8-cloud-properties",
-    # "https://www.mosdac.gov.in/global-ocean-surface-current",
-    # "https://www.mosdac.gov.in/high-resolution-sea-surface-salinity",
-    # "https://www.mosdac.gov.in/ocean-subsurface",
-    # "https://www.mosdac.gov.in/wave-based-renewable-energy",
-    # "https://www.mosdac.gov.in/indian-mainland-coastal-product",
-    # "https://www.mosdac.gov.in/oceanic-eddies-detection",
-    # "https://www.mosdac.gov.in/sea-ice-occurrence-probability",
+    # Open Data — Atmosphere
+    "https://www.mosdac.gov.in/bayesian-based-mt-saphir-rainfall",
+    "https://www.mosdac.gov.in/gps-derived-integrated-water-vapour",
+    "https://www.mosdac.gov.in/gsmap-isro-rain",
+    "https://www.mosdac.gov.in/meteosat8-cloud-properties",
 
-    # # P4 — Land & Hydrology Datasets
-    # "https://www.mosdac.gov.in/soil-moisture-0",
-    # "https://www.mosdac.gov.in/inland-water-height",
-    # "https://www.mosdac.gov.in/river-discharge",
-    # "https://www.mosdac.gov.in/3d-volumetric-terls-dwrproduct",
+    # Open Data — Land
+    "https://www.mosdac.gov.in/3d-volumetric-terls-dwrproduct",
+    "https://www.mosdac.gov.in/inland-water-height",
+    "https://www.mosdac.gov.in/river-discharge",
+    "https://www.mosdac.gov.in/soil-moisture-0",
 
-    # # P5 — Legacy / Inactive Satellites
-    # "https://www.mosdac.gov.in/insat-3a",
-    # "https://www.mosdac.gov.in/kalpana-1",
-    # "https://www.mosdac.gov.in/oceansat-2",
-    # "https://www.mosdac.gov.in/megha-tropiques",
-    # "https://www.mosdac.gov.in/saral-altika",
+    # Open Data — Ocean
+    "https://www.mosdac.gov.in/global-ocean-surface-current",
+    "https://www.mosdac.gov.in/high-resolution-sea-surface-salinity",
+    "https://www.mosdac.gov.in/indian-mainland-coastal-product",
+    "https://www.mosdac.gov.in/ocean-subsurface",
+    "https://www.mosdac.gov.in/oceanic-eddies-detection",
+    "https://www.mosdac.gov.in/sea-ice-occurrence-probability",
+    "https://www.mosdac.gov.in/wave-based-renewable-energy",
 
-    # # P6 — Reports & Quality Docs
-    # "https://www.mosdac.gov.in/weather-reports",
-    # "https://www.mosdac.gov.in/validation-reports",
-    # "https://www.mosdac.gov.in/calibration-reports",
-    # "https://www.mosdac.gov.in/data-quality",
-    # "https://www.mosdac.gov.in/insitu",
-    # "https://www.mosdac.gov.in/rss-feed",
+    # Reports
+    "https://www.mosdac.gov.in/insitu",
+    "https://www.mosdac.gov.in/calibration-reports",
+    "https://www.mosdac.gov.in/validation-reports",
+    "https://www.mosdac.gov.in/data-quality",
+    "https://www.mosdac.gov.in/weather-reports",
+    "https://www.mosdac.gov.in/rss-feed",
 
-    # # P7 — Site Reference
-    # "https://www.mosdac.gov.in/announcements",
-    # "https://www.mosdac.gov.in/faq-page",
-    # "https://www.mosdac.gov.in/help",
-    # "https://www.mosdac.gov.in/tools",
-    # "https://www.mosdac.gov.in/atlases",
-    # "https://www.mosdac.gov.in/downloadapi-manual",
-    # "https://www.mosdac.gov.in/about-us",
-    # "https://www.mosdac.gov.in/contact-us",
-
-    # # P8 — Policies
-    # "https://www.mosdac.gov.in/data-access-policy",
-    # "https://www.mosdac.gov.in/privacy-policy",
-    # "https://www.mosdac.gov.in/terms-conditions",
-    # "https://www.mosdac.gov.in/copyright-policy",
-    # "https://www.mosdac.gov.in/website-policies",
-    # "https://www.mosdac.gov.in/hyperlink-policy",
+    # Policies
+    "https://www.mosdac.gov.in/copyright-policy",
+    "https://www.mosdac.gov.in/data-access-policy",
+    "https://www.mosdac.gov.in/hyperlink-policy",
+    "https://www.mosdac.gov.in/privacy-policy",
+    "https://www.mosdac.gov.in/website-policies",
+    "https://www.mosdac.gov.in/terms-conditions",
 ]
 
 # ─────────────────────────────────────────────────────────────
@@ -315,7 +244,45 @@ DEFAULT_HEADERS = {
 }
 
 # ─────────────────────────────────────────────────────────────
-# 11. CONTENT CLASSIFICATION — MOSDAC domain vocabulary
+# 11. KNOWN SATELLITE MISSIONS  (verified from real nav HTML, March 2026)
+# ─────────────────────────────────────────────────────────────
+# slug → display name, as they appear in the Superfish navigation menu
+KNOWN_MISSIONS: dict = {
+    "insat-3dr":      "INSAT-3DR",
+    "insat-3d":       "INSAT-3D",
+    "insat-3a":       "INSAT-3A",
+    "insat-3ds":      "INSAT-3DS",
+    "kalpana-1":      "KALPANA-1",
+    "megha-tropiques": "MeghaTropiques",
+    "saral-altika":   "SARAL-AltiKa",
+    "oceansat-2":     "OCEANSAT-2",
+    "oceansat-3":     "OCEANSAT-3",
+    "scatsat-1":      "SCATSAT-1",
+}
+
+# Sub-page section types that exist under each mission landing page.
+# Discovered from INSAT-3D sidebar nav: block-menu-menu-{mission}-menu
+# Pattern: /{mission-slug}-{section}
+# Note: 'data-products' links to /internal/catalog-{name} — LOGIN WALL, skip.
+MISSION_SUBPAGE_TYPES: list = [
+    "introduction",   # Overview / about the mission
+    "objectives",     # Mission goals
+    "spacecraft",     # Bus / platform specs
+    "payloads",       # Sensors / instruments
+    "references",     # Documents / papers (labelled "Documents" in menu)
+]
+
+# Drupal content type for mission/satellite pages: node-type-satellite
+# Detected from <body class="... node-type-satellite ...">
+DRUPAL_MISSION_NODE_TYPE = "node-type-satellite"
+
+# Sidebar block ID pattern for mission sub-navigation
+# e.g. block-menu-menu-insat-3d-menu, block-menu-menu-oceansat-3-menu
+MISSION_SIDEBAR_BLOCK_PREFIX = "block-menu-menu-"
+MISSION_SIDEBAR_BLOCK_SUFFIX = "-menu"
+
+# ─────────────────────────────────────────────────────────────
+# 12. CONTENT CLASSIFICATION — MOSDAC domain vocabulary
 # ─────────────────────────────────────────────────────────────
 FAQ_KEYWORDS = [
     "faq", "frequently asked", "question", "help", "support",

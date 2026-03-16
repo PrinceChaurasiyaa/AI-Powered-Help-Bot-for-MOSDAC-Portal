@@ -1,7 +1,7 @@
 import logging
 import sys
 from pathlib import Path
-from ..config import TRAINIG_CRAWL_LOG_PATH
+from config import TRAINIG_CRAWL_LOG_PATH, CRAWL_LOG_PATH
 def get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
 
@@ -41,11 +41,11 @@ def get_logger(name: str) -> logging.Logger:
             datefmt=date_fmt))
     
     #file handler
-    file_handler = logging.FileHandler(TRAINIG_CRAWL_LOG_PATH, encoding="utf-8")
+    file_handler = logging.FileHandler(CRAWL_LOG_PATH, encoding="utf-8")
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(logging.Formatter(fmt, datefmt=date_fmt))
 
-    #logger.addHandler(console)
+    logger.addHandler(console)
     logger.addHandler(file_handler)
 
     return logger
