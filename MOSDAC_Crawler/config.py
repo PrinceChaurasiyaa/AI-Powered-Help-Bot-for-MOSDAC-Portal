@@ -19,67 +19,140 @@ ALLOWED_DOMAINS = ["mosdac.gov.in"]
 SITEMAP_URL = "https://www.mosdac.gov.in/sitemap"
 
 # Explicit seed URLs (confirmed public, no-login, from real /sitemap HTML)
+# START_URLS = [
+#     # Core
+#     "https://www.mosdac.gov.in",
+#     "https://www.mosdac.gov.in/sitemap",
+#     "https://www.mosdac.gov.in/faq-page",       # Real URL — not /faq
+#     "https://www.mosdac.gov.in/help",
+#     "https://www.mosdac.gov.in/about-us",
+#     "https://www.mosdac.gov.in/contact-us",
+#     "https://www.mosdac.gov.in/atlases",
+#     "https://www.mosdac.gov.in/tools",
+#     "https://www.mosdac.gov.in/downloadapi-manual",
+#     "https://www.mosdac.gov.in/announcements",
+
+#     # Satellite Missions (all public, no login required)
+#     "https://www.mosdac.gov.in/insat-3dr",
+#     "https://www.mosdac.gov.in/insat-3d",
+#     "https://www.mosdac.gov.in/insat-3a",
+#     "https://www.mosdac.gov.in/insat-3ds",
+#     "https://www.mosdac.gov.in/kalpana-1",
+#     "https://www.mosdac.gov.in/megha-tropiques",
+#     "https://www.mosdac.gov.in/saral-altika",
+#     "https://www.mosdac.gov.in/oceansat-2",
+#     "https://www.mosdac.gov.in/oceansat-3",
+#     "https://www.mosdac.gov.in/scatsat-1",
+
+#     # Satellite Catalog
+#     "https://www.mosdac.gov.in/catalog/satellite.php",
+#     "https://www.mosdac.gov.in/catalog/insitu.php",
+#     "https://www.mosdac.gov.in/catalog/radar.php",
+
+#     # Open Data — Atmosphere
+#     "https://www.mosdac.gov.in/bayesian-based-mt-saphir-rainfall",
+#     "https://www.mosdac.gov.in/gps-derived-integrated-water-vapour",
+#     "https://www.mosdac.gov.in/gsmap-isro-rain",
+#     "https://www.mosdac.gov.in/meteosat8-cloud-properties",
+
+#     # Open Data — Land
+#     "https://www.mosdac.gov.in/3d-volumetric-terls-dwrproduct",
+#     "https://www.mosdac.gov.in/inland-water-height",
+#     "https://www.mosdac.gov.in/river-discharge",
+#     "https://www.mosdac.gov.in/soil-moisture-0",
+
+#     # Open Data — Ocean
+#     "https://www.mosdac.gov.in/global-ocean-surface-current",
+#     "https://www.mosdac.gov.in/high-resolution-sea-surface-salinity",
+#     "https://www.mosdac.gov.in/indian-mainland-coastal-product",
+#     "https://www.mosdac.gov.in/ocean-subsurface",
+#     "https://www.mosdac.gov.in/oceanic-eddies-detection",
+#     "https://www.mosdac.gov.in/sea-ice-occurrence-probability",
+#     "https://www.mosdac.gov.in/wave-based-renewable-energy",
+
+#     # Reports
+#     "https://www.mosdac.gov.in/insitu",
+#     "https://www.mosdac.gov.in/calibration-reports",
+#     "https://www.mosdac.gov.in/validation-reports",
+#     "https://www.mosdac.gov.in/data-quality",
+#     "https://www.mosdac.gov.in/weather-reports",
+#     "https://www.mosdac.gov.in/rss-feed",
+
+#     # Policies
+#     "https://www.mosdac.gov.in/copyright-policy",
+#     "https://www.mosdac.gov.in/data-access-policy",
+#     "https://www.mosdac.gov.in/hyperlink-policy",
+#     "https://www.mosdac.gov.in/privacy-policy",
+#     "https://www.mosdac.gov.in/website-policies",
+#     "https://www.mosdac.gov.in/terms-conditions",
+# ]
+
 START_URLS = [
-    # Core
-    "https://www.mosdac.gov.in",
-    "https://www.mosdac.gov.in/sitemap",
-    "https://www.mosdac.gov.in/faq-page",       # Real URL — not /faq
-    "https://www.mosdac.gov.in/help",
-    "https://www.mosdac.gov.in/about-us",
-    "https://www.mosdac.gov.in/contact-us",
-    "https://www.mosdac.gov.in/atlases",
-    "https://www.mosdac.gov.in/tools",
-    "https://www.mosdac.gov.in/downloadapi-manual",
-    "https://www.mosdac.gov.in/announcements",
+    # P1 — Critical Discovery
+    # "https://www.mosdac.gov.in",
+    # "https://www.mosdac.gov.in/sitemap",
+    # "https://www.mosdac.gov.in/catalog/satellite.php",
+    # "https://www.mosdac.gov.in/catalog/insitu.php",
+    # "https://www.mosdac.gov.in/catalog/radar.php",
 
-    # Satellite Missions (all public, no login required)
-    "https://www.mosdac.gov.in/insat-3dr",
+    # P2 — Active Operational Satellites
+    # "https://www.mosdac.gov.in/insat-3ds",
+    # "https://www.mosdac.gov.in/insat-3dr",
     "https://www.mosdac.gov.in/insat-3d",
-    "https://www.mosdac.gov.in/insat-3a",
-    "https://www.mosdac.gov.in/insat-3ds",
-    "https://www.mosdac.gov.in/kalpana-1",
-    "https://www.mosdac.gov.in/megha-tropiques",
-    "https://www.mosdac.gov.in/saral-altika",
-    "https://www.mosdac.gov.in/oceansat-2",
-    "https://www.mosdac.gov.in/oceansat-3",
-    "https://www.mosdac.gov.in/scatsat-1",
+    # "https://www.mosdac.gov.in/oceansat-3",
+    # "https://www.mosdac.gov.in/scatsat-1",
 
-    # Open Data — Atmosphere
-    "https://www.mosdac.gov.in/bayesian-based-mt-saphir-rainfall",
-    "https://www.mosdac.gov.in/gps-derived-integrated-water-vapour",
-    "https://www.mosdac.gov.in/gsmap-isro-rain",
-    "https://www.mosdac.gov.in/meteosat8-cloud-properties",
+    # # P3 — High-Value Open Datasets (Ocean & Atmosphere)
+    # "https://www.mosdac.gov.in/gsmap-isro-rain",
+    # "https://www.mosdac.gov.in/gps-derived-integrated-water-vapour",
+    # "https://www.mosdac.gov.in/bayesian-based-mt-saphir-rainfall",
+    # "https://www.mosdac.gov.in/meteosat8-cloud-properties",
+    # "https://www.mosdac.gov.in/global-ocean-surface-current",
+    # "https://www.mosdac.gov.in/high-resolution-sea-surface-salinity",
+    # "https://www.mosdac.gov.in/ocean-subsurface",
+    # "https://www.mosdac.gov.in/wave-based-renewable-energy",
+    # "https://www.mosdac.gov.in/indian-mainland-coastal-product",
+    # "https://www.mosdac.gov.in/oceanic-eddies-detection",
+    # "https://www.mosdac.gov.in/sea-ice-occurrence-probability",
 
-    # Open Data — Land
-    "https://www.mosdac.gov.in/3d-volumetric-terls-dwrproduct",
-    "https://www.mosdac.gov.in/inland-water-height",
-    "https://www.mosdac.gov.in/river-discharge",
-    "https://www.mosdac.gov.in/soil-moisture-0",
+    # # P4 — Land & Hydrology Datasets
+    # "https://www.mosdac.gov.in/soil-moisture-0",
+    # "https://www.mosdac.gov.in/inland-water-height",
+    # "https://www.mosdac.gov.in/river-discharge",
+    # "https://www.mosdac.gov.in/3d-volumetric-terls-dwrproduct",
 
-    # Open Data — Ocean
-    "https://www.mosdac.gov.in/global-ocean-surface-current",
-    "https://www.mosdac.gov.in/high-resolution-sea-surface-salinity",
-    "https://www.mosdac.gov.in/indian-mainland-coastal-product",
-    "https://www.mosdac.gov.in/ocean-subsurface",
-    "https://www.mosdac.gov.in/oceanic-eddies-detection",
-    "https://www.mosdac.gov.in/sea-ice-occurrence-probability",
-    "https://www.mosdac.gov.in/wave-based-renewable-energy",
+    # # P5 — Legacy / Inactive Satellites
+    # "https://www.mosdac.gov.in/insat-3a",
+    # "https://www.mosdac.gov.in/kalpana-1",
+    # "https://www.mosdac.gov.in/oceansat-2",
+    # "https://www.mosdac.gov.in/megha-tropiques",
+    # "https://www.mosdac.gov.in/saral-altika",
 
-    # Reports
-    "https://www.mosdac.gov.in/insitu",
-    "https://www.mosdac.gov.in/calibration-reports",
-    "https://www.mosdac.gov.in/validation-reports",
-    "https://www.mosdac.gov.in/data-quality",
-    "https://www.mosdac.gov.in/weather-reports",
-    "https://www.mosdac.gov.in/rss-feed",
+    # # P6 — Reports & Quality Docs
+    # "https://www.mosdac.gov.in/weather-reports",
+    # "https://www.mosdac.gov.in/validation-reports",
+    # "https://www.mosdac.gov.in/calibration-reports",
+    # "https://www.mosdac.gov.in/data-quality",
+    # "https://www.mosdac.gov.in/insitu",
+    # "https://www.mosdac.gov.in/rss-feed",
 
-    # Policies
-    "https://www.mosdac.gov.in/copyright-policy",
-    "https://www.mosdac.gov.in/data-access-policy",
-    "https://www.mosdac.gov.in/hyperlink-policy",
-    "https://www.mosdac.gov.in/privacy-policy",
-    "https://www.mosdac.gov.in/website-policies",
-    "https://www.mosdac.gov.in/terms-conditions",
+    # # P7 — Site Reference
+    # "https://www.mosdac.gov.in/announcements",
+    # "https://www.mosdac.gov.in/faq-page",
+    # "https://www.mosdac.gov.in/help",
+    # "https://www.mosdac.gov.in/tools",
+    # "https://www.mosdac.gov.in/atlases",
+    # "https://www.mosdac.gov.in/downloadapi-manual",
+    # "https://www.mosdac.gov.in/about-us",
+    # "https://www.mosdac.gov.in/contact-us",
+
+    # # P8 — Policies
+    # "https://www.mosdac.gov.in/data-access-policy",
+    # "https://www.mosdac.gov.in/privacy-policy",
+    # "https://www.mosdac.gov.in/terms-conditions",
+    # "https://www.mosdac.gov.in/copyright-policy",
+    # "https://www.mosdac.gov.in/website-policies",
+    # "https://www.mosdac.gov.in/hyperlink-policy",
 ]
 
 # ─────────────────────────────────────────────────────────────
