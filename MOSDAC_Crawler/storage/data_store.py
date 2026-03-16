@@ -399,6 +399,33 @@ class DataStore:
 
     # ============ DOCUMENTS ===================================
 
+    def save_documents(self, data: Dict[str: Any]):
+        self.conn.execute(
+            """INSERT OR REPLACE INTO documents
+               (url, url_hash, filename, file_type, local_path,
+                extracted_text, content_hash, page_count,
+                file_size_kb, source_page_url, downloaded_at, extraction_ok)
+               VALUES
+               (:url, :url_hash, :filename, :file_type, :local_path,
+                :extracted_text, :content_hash, :page_count,
+                :file_size_kb, :source_page_url, :downloaded_at, :extraction_ok)""",
+            {
+                "url":             data.get("url", ""),
+                "url_hash":        data.get("url_hash", ""),
+                "filename":        data.get("filename", ""),
+                "file_type":       data.get("file_type", ""),
+                "local_path":      data.get("local_path", ""),
+                "extracted_text":  data.get("extracted_text", ""),
+                "content_hash":    data.get("content_hash", ""),
+                "page_count":      data.get("page_count", 0),
+                "file_size_kb":    data.get("file_size_kb", 0.0),
+                "source_page_url": data.get("source_page_url", ""),
+                "downloaded_at":   data.get("downloaded_at", _now()),
+                "extraction_ok":   int(data.get("extraction_ok", True)),
+            },
+        )
+        self.conn.commit()
+
     # ============ FAQs ========================================
 
     def save_faq(self, source_url:str, question: str, answer: str,
