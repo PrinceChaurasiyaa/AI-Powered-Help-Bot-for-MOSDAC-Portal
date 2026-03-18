@@ -3,3 +3,4 @@ MOSDACvenv
 testing.py
 *__pycache__
 output
+data.csv
