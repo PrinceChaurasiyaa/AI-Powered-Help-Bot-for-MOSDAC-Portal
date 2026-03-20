@@ -272,6 +272,38 @@ MISSION_SUBPAGE_TYPES: list = [
     "references",     # Documents / papers (labelled "Documents" in menu)
 ]
 
+# ── URL slug overrides (verified from REAL crawl logs, March 2026) ──────────
+# Some missions use a different URL slug for their sub-pages than the landing
+# page slug.  e.g. landing page is /insat-3ds but sub-pages are /insat-3s-*
+# These are discovered by actually running the crawler and observing log output.
+#
+# Format:  { landing_slug: sub_page_url_slug }
+# Only entries that DIFFER from the landing slug are listed here.
+MISSION_SUBPAGE_SLUG_OVERRIDES: dict = {
+    # Landing /insat-3ds  →  sub-pages /insat-3s-introduction etc.
+    "insat-3s":   "insat-3ds",
+    # /saral-references (references page has shorter slug, not saral-altika-references)
+    "saral":      "saral-altika",
+    # /oceansat3-references (no hyphen in this one page only)
+    "oceansat3":  "oceansat-3",
+}
+
+# ── Known catalog slugs (for /internal/catalog-* recognition) ───────────────
+# Maps landing slug → catalog slug used in the /internal/ URL.
+# Verified from real crawl logs.
+MISSION_CATALOG_SLUGS: dict = {
+    "insat-3dr":       "insat3dr",
+    "insat-3d":        "insat3d",
+    "insat-3a":        "insat3a",
+    "insat-3ds":       "insat3s",          # note: "3s" not "3ds"
+    "kalpana-1":       "kalpana1",
+    "megha-tropiques": "meghatropiques",
+    "saral-altika":    "saral",
+    "oceansat-2":      "oceansat2",
+    "oceansat-3":      "oceansat3",
+    "scatsat-1":       "scatsat",
+}
+
 # Drupal content type for mission/satellite pages: node-type-satellite
 # Detected from <body class="... node-type-satellite ...">
 DRUPAL_MISSION_NODE_TYPE = "node-type-satellite"

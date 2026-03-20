@@ -399,7 +399,7 @@ class DataStore:
 
     # ============ DOCUMENTS ===================================
 
-    def save_documents(self, data: Dict[str, Any]):
+    def save_document(self, data: Dict[str, Any]):
         self.conn.execute(
             """INSERT OR REPLACE INTO documents
                (url, url_hash, filename, file_type, local_path,
@@ -439,10 +439,53 @@ class DataStore:
         self.conn.commit()
 
     # ============ TABLES ======================================
+    def save_table(self, source_url: str, table_index: int,
+                   headers: List[str], rows: List[List[str]],
+                   caption: str = ""):
+        self.conn.execute(
+            """INSERT INTO extracted_tables
+               (source_url, table_index, headers, rows,
+                caption, row_count, col_count, extracted_at)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                source_url,
+                table_index,
+                json.dumps(headers),
+                json.dumps(rows),
+                caption,
+                len(rows),
+                len(headers),
+                _now(),
+            ),
+        )
+        self.conn.commit()
 
     # ============ META DATA ===================================
+    def save_meta(self, source_url: str, meta_type: str,
+                  key: str, value: str):
+        self.conn.execute(
+            """INSERT INTO meta_data
+               (source_url, meta_type, key, value, extracted_at)
+               VALUES (?, ?, ?, ?, ?)""",
+            (source_url, meta_type, key, value, _now()),
+        )
+        self.conn.commit()
 
     # ============ REPORTING ===================================
+    def summary(self) -> Dict[str, Any]:
+        """Quick summary of what's been collected so far."""
+        pages     = self.conn.execute("SELECT COUNT(*) FROM pages").fetchone()[0]
+        docs      = self.conn.execute("SELECT COUNT(*) FROM documents").fetchone()[0]
+        faqs      = self.conn.execute("SELECT COUNT(*) FROM faqs").fetchone()[0]
+        tables    = self.conn.execute("SELECT COUNT(*) FROM extracted_tables").fetchone()[0]
+        queue     = self.queue_stats()
+        return {
+            "pages_crawled":  pages,
+            "documents":      docs,
+            "faqs_extracted": faqs,
+            "tables":         tables,
+            "queue":          queue,
+        }
 
 def _now() -> str:
     return datetime.utcnow().isoformat(timespec="seconds") + "Z"

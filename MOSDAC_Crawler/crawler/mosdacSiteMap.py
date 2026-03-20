@@ -30,7 +30,7 @@ from storage.data_store import DataStore
 from utils.helpers import (
     is_allowed_url,
     is_document_url,
-    normalize_url,
+    normalise_url,
     url_hash,
 )
 
@@ -270,7 +270,7 @@ class MOSDACsitemap:
             if href.endswith(landing_path) or href == landing_path:
                 continue
 
-            full_url = normalize_url(href, base=BASE_URL)
+            full_url = normalise_url(href, base=BASE_URL)
             if not full_url:
                 continue
 
@@ -299,7 +299,7 @@ class MOSDACsitemap:
             if not href.startswith(f"/{mission_slug}-"):
                 continue
 
-            full_url = normalize_url(href, base=BASE_URL)
+            full_url = normalise_url(href, base=BASE_URL)
             if not full_url:
                 continue
 
@@ -365,7 +365,7 @@ class MOSDACsitemap:
                 #<a href="#" onclick="return false;" title="" class="nolink" tabindex="0" style="font-size: 20px;">Catalog</a>
                 continue
             
-            full_url = normalize_url(href, base=BASE_URL)
+            full_url = normalise_url(href, base=BASE_URL)
             if not full_url:
                 # None is treated as False
                 continue
@@ -411,7 +411,7 @@ class MOSDACsitemap:
         doc_urls = []
         for a in block.find_all("a", href=True):
             href = a["href"].strip()
-            full_url = normalize_url(href, base=BASE_URL)
+            full_url = normalise_url(href, base=BASE_URL)
             if full_url and is_document_url(full_url):
                 title = a.get_text(strip=True)
                 log.info(f" [announcement PDF] {title[:60]} -> {full_url}")

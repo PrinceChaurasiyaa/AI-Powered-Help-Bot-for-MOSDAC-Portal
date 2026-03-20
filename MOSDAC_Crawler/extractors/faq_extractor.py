@@ -1,7 +1,7 @@
 from typing import List, Tuple
 import requests
 from bs4 import BeautifulSoup, Tag
-from MOSDAC_Crawler.utils.logger import get_logger
+from utils.logger import get_logger
 
 log = get_logger(__name__)
 
