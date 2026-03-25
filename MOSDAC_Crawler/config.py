@@ -341,3 +341,113 @@ GEOSPATIAL_KEYWORDS = [
     "latitude", "longitude", "spatial resolution", "coverage",
     "swath", "projection", "coordinate", "geospatial",
 ]
+
+
+
+
+# ─────────────────────────────────────────────────────────────
+# 13. PHASE 2 — KNOWLEDGE GRAPH SETTINGS
+# ─────────────────────────────────────────────────────────────
+
+# Output directory for KG files (alongside Phase 1 output)
+KG_DIR = OUTPUT_DIR / "knowledge_graph"
+KG_DIR.mkdir(parents=True, exist_ok=True)
+
+# Output files
+KG_GRAPH_JSON    = KG_DIR / "knowledge_graph.json"      # NetworkX node-link JSON
+KG_GRAPH_GRAPHML = KG_DIR / "knowledge_graph.graphml"   # GraphML (for Gephi / viz)
+KG_TEXT_CHUNKS   = KG_DIR / "text_chunks.jsonl"         # RAG-ready chunks (Phase 3)
+KG_CYPHER_FILE   = KG_DIR / "neo4j_import.cypher"       # Optional Neo4j Cypher
+KG_REPORT_FILE   = KG_DIR / "kg_report.json"            # Build report
+
+# ── Page filtering — what to KEEP for the KG ──────────────────
+# Only these page_type values are used as entity sources
+KG_USEFUL_PAGE_TYPES = {
+    "mission",
+    "mission_section",
+    "open_data",
+    "faq",
+    "general",      # about-us, help, policies — kept for context
+}
+
+# Minimum word count for a page to be considered useful
+KG_MIN_WORD_COUNT = 10
+
+# URL patterns that indicate garbage pages — filtered before KG build
+KG_GARBAGE_URL_PATTERNS = [
+    "/filebrowser/",
+    "/realms/",
+    "?sort=",
+    "?order=",
+    "/taxonomy/term/",
+    "/node/940/",
+    "/node/483/",
+    "/node/464/",
+    "/node/543/",
+    "/node/1975/",
+    "/node/2035",
+    "/tags/",
+    "?page=",
+    "/opendata/GSMaP",
+    "/flip-book/",
+    "login-actions",
+    "reset-credentials",
+    "/catalog/satellite.php",
+    "/signup",
+    "/software/",
+    ".rar",
+    "mosdac.gov.in/atlas",      # Pagination shell (5 words)
+    "/mosdac-feedback",
+]
+
+# ── Open data product categories (inferred from URL slug) ─────
+OPEN_DATA_CATEGORIES = {
+    "atmosphere": [
+        "rainfall", "saphir", "water-vapour", "gsmap", "cloud",
+        "bayesian", "meteosat", "gps",
+    ],
+    "land": [
+        "soil-moisture", "river-discharge", "inland-water",
+        "volumetric", "dwrproduct",
+    ],
+    "ocean": [
+        "ocean-surface", "ocean-subsurface", "sea-surface", "salinity",
+        "coastal-product", "eddies", "sea-ice", "wave-based",
+        "global-ocean",
+    ],
+}
+
+# ── Text chunk settings (for Phase 3 RAG) ─────────────────────
+# Maximum characters per chunk (fits in most LLM context windows)
+KG_CHUNK_MAX_CHARS = 1500
+# Overlap between consecutive chunks from the same source
+KG_CHUNK_OVERLAP   = 200
+
+# ── Mission orbit type mapping ─────────────────────────────────
+# Used to enrich Mission nodes with orbit_type without ML
+MISSION_ORBIT_TYPES = {
+    "insat-3dr":       "Geostationary",
+    "insat-3d":        "Geostationary",
+    "insat-3a":        "Geostationary",
+    "insat-3ds":       "Geostationary",
+    "kalpana-1":       "Geostationary",
+    "megha-tropiques": "Inclined Orbit (867 km)",
+    "saral-altika":    "Sun-synchronous (800 km)",
+    "oceansat-2":      "Sun-synchronous (720 km)",
+    "oceansat-3":      "Sun-synchronous (742 km)",
+    "scatsat-1":       "Sun-synchronous (724 km)",
+}
+
+# Mission family grouping
+MISSION_FAMILIES = {
+    "insat-3dr":       "INSAT",
+    "insat-3d":        "INSAT",
+    "insat-3a":        "INSAT",
+    "insat-3ds":       "INSAT",
+    "kalpana-1":       "INSAT",
+    "megha-tropiques": "MeghaTropiques",
+    "saral-altika":    "SARAL",
+    "oceansat-2":      "OCEANSAT",
+    "oceansat-3":      "OCEANSAT",
+    "scatsat-1":       "SCATSAT",
+}

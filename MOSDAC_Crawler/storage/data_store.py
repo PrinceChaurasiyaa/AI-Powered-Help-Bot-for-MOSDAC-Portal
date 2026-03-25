@@ -471,6 +471,150 @@ class DataStore:
         )
         self.conn.commit()
 
+    # ── PHASE 2 READ METHODS ──────────────────────────────────
+    # Used by knowledge_graph/ — read-only queries on the crawl DB.
+
+    def get_all_pages(
+        self,
+        page_types: List[str] = None,
+        min_words: int = 10,
+        languages: List[str] = None,
+        exclude_url_patterns: List[str] = None,
+    ) -> List[Dict]:
+        """
+        Return pages filtered by type, word count, language, and URL patterns.
+
+        Defaults produce only clean, useful pages — garbage from pagination,
+        login pages, and binary filebrowser downloads is excluded.
+
+        Args:
+            page_types:           e.g. ['mission','mission_section','open_data','faq']
+                                  None = all types
+            min_words:            Minimum word count (default 10)
+            languages:            e.g. ['en']. None = all
+            exclude_url_patterns: URL substrings to reject. None = safe defaults.
+        """
+        if exclude_url_patterns is None:
+            exclude_url_patterns = [
+                "/filebrowser/", "/realms/", "?sort=", "?order=",
+                "/taxonomy/term/", "/node/940/", "/node/483/",
+                "/node/464/", "/node/543/", "/node/1975/",
+                "/tags/", "?page=", "/opendata/GSMaP",
+                "/flip-book/", "login-actions", "reset-credentials",
+                "/catalog/satellite.php", "/signup",
+                "/software/", ".rar",
+            ]
+
+        rows = self.conn.execute(
+            """SELECT url, url_hash, title, content_text, page_type,
+                      depth, word_count, crawled_at, language
+               FROM pages
+               WHERE word_count >= ?
+               ORDER BY page_type, url""",
+            (min_words,),
+        ).fetchall()
+
+        results = []
+        for r in rows:
+            row = dict(r)
+
+            # Language filter
+            if languages and row.get("language") not in languages:
+                continue
+
+            # Page type filter
+            if page_types and row.get("page_type") not in page_types:
+                continue
+
+            # URL exclusion filter
+            url_lower = row["url"].lower()
+            if any(pat.lower() in url_lower for pat in exclude_url_patterns):
+                continue
+
+            results.append(row)
+
+        return results
+
+    def get_all_faqs(self) -> List[Dict]:
+        """Return all FAQ rows."""
+        rows = self.conn.execute(
+            """SELECT id, source_url, question, answer, category,
+                      confidence, extracted_at
+               FROM faqs ORDER BY id"""
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+    def get_all_documents(self, min_chars: int = 0) -> List[Dict]:
+        """
+        Return all downloaded documents.
+        min_chars filters out scanned/empty PDFs.
+        """
+        rows = self.conn.execute(
+            """SELECT id, url, url_hash, filename, file_type,
+                      local_path, extracted_text, page_count,
+                      file_size_kb, source_page_url, downloaded_at,
+                      extraction_ok
+               FROM documents
+               WHERE extraction_ok = 1
+               ORDER BY id"""
+        ).fetchall()
+        results = []
+        for r in rows:
+            rec = dict(r)
+            text = rec.get("extracted_text") or ""
+            if len(text) >= min_chars:
+                results.append(rec)
+        return results
+
+    def get_all_tables(self) -> List[Dict]:
+        """Return all extracted tables with parsed JSON headers/rows."""
+        rows = self.conn.execute(
+            """SELECT id, source_url, table_index, headers, rows,
+                      caption, row_count, col_count
+               FROM extracted_tables ORDER BY source_url, table_index"""
+        ).fetchall()
+        results = []
+        for r in rows:
+            rec = dict(r)
+            try:
+                rec["headers"] = json.loads(rec["headers"] or "[]")
+                rec["rows"]    = json.loads(rec["rows"]    or "[]")
+            except Exception:
+                rec["headers"] = []
+                rec["rows"]    = []
+            results.append(rec)
+        return results
+
+    def get_tables_for_url(self, url: str) -> List[Dict]:
+        """Return all tables extracted from a specific page URL."""
+        rows = self.conn.execute(
+            """SELECT id, source_url, table_index, headers, rows,
+                      caption, row_count, col_count
+               FROM extracted_tables
+               WHERE source_url = ?
+               ORDER BY table_index""",
+            (url,),
+        ).fetchall()
+        results = []
+        for r in rows:
+            rec = dict(r)
+            try:
+                rec["headers"] = json.loads(rec["headers"] or "[]")
+                rec["rows"]    = json.loads(rec["rows"]    or "[]")
+            except Exception:
+                rec["headers"] = []
+                rec["rows"]    = []
+            results.append(rec)
+        return results
+
+    def get_page_by_url(self, url: str) -> Optional[Dict]:
+        """Return a single page by exact URL, or None."""
+        row = self.conn.execute(
+            "SELECT * FROM pages WHERE url = ?", (url,)
+        ).fetchone()
+        return dict(row) if row else None
+
+
     # ============ REPORTING ===================================
     def summary(self) -> Dict[str, Any]:
         """Quick summary of what's been collected so far."""
