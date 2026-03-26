@@ -451,3 +451,59 @@ MISSION_FAMILIES = {
     "oceansat-3":      "OCEANSAT",
     "scatsat-1":       "SCATSAT",
 }
+
+
+
+# ─────────────────────────────────────────────────────────────
+# 14. PHASE 3 — RAG PIPELINE & CHATBOT SETTINGS
+# ─────────────────────────────────────────────────────────────
+
+# ── Directories ───────────────────────────────────────────────
+RAG_DIR         = OUTPUT_DIR / "rag"
+RAG_DIR.mkdir(parents=True, exist_ok=True)
+
+# ── Input (from Phase 2) ──────────────────────────────────────
+RAG_CHUNKS_FILE = KG_TEXT_CHUNKS          # text_chunks.jsonl
+
+# ── Vector store files ────────────────────────────────────────
+RAG_INDEX_FILE    = RAG_DIR / "faiss.index"       # FAISS binary index
+RAG_METADATA_FILE = RAG_DIR / "chunk_metadata.json"  # id → metadata map
+RAG_BUILD_REPORT  = RAG_DIR / "rag_report.json"   # build stats
+
+# ── Embedding model ───────────────────────────────────────────
+# all-MiniLM-L6-v2: 22M params, 384 dims, fast, good quality
+# Downloads ~90 MB on first run (cached in ~/.cache/huggingface)
+RAG_EMBEDDING_MODEL    = "sentence-transformers/all-MiniLM-L6-v2"
+RAG_EMBEDDING_DIM      = 384
+RAG_EMBEDDING_BATCH    = 64     # chunks per embedding batch
+
+# ── Retrieval settings ────────────────────────────────────────
+RAG_TOP_K              = 6      # chunks to retrieve per query
+RAG_MIN_SCORE          = 0.25   # minimum cosine similarity threshold
+# Node types to prioritise in retrieval (FAQ answers first)
+RAG_PRIORITY_TYPES     = ["FAQ", "MissionSection", "Mission",
+                           "OpenDataProduct", "Document"]
+
+# ── Claude API settings ───────────────────────────────────────
+# Model to use for answer generation
+RAG_CLAUDE_MODEL       = "claude-opus-4-5"
+RAG_MAX_TOKENS         = 1024
+RAG_TEMPERATURE        = 0.1    # Low temp = factual, consistent answers
+
+# Context window budget for retrieved chunks
+RAG_CONTEXT_MAX_CHARS  = 4000   # Total chars of context to send to Claude
+
+# ── Chunk text cleaning ───────────────────────────────────────
+# Patterns to strip from chunk text before embedding / display
+RAG_NOISE_PATTERNS = [
+    "?php",
+    "drupal_add_library",
+    "drupal_add_js",
+    "jQuery(document).ready",
+    "jQuery(\"#accordion\")",
+    "collapsible:true",
+    "heightStyle:",
+]
+
+# ── Chat history ──────────────────────────────────────────────
+RAG_HISTORY_MAX_TURNS  = 10     # Max conversation turns to keep in memory
