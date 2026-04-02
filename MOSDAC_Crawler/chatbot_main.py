@@ -387,7 +387,7 @@ def main() -> None:
 
     console.print(Panel(
         "[bold blue]MOSDAC AI Help Bot — Phase 3: RAG Chatbot[/bold blue]\n"
-        "[dim]sentence-transformers + FAISS + Claude | mosdac.gov.in[/dim]",
+        "[dim]sentence-transformers + FAISS | mosdac.gov.in[/dim]",
         expand=False,
     ))
 

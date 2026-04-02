@@ -46,6 +46,9 @@ class ChunkLoader:
     def load_all(self) -> List[dict]:
         """Load all chunks into memory. Returns list of cleaned chunk dicts."""
         chunks = list(self.stream())
+        log.info(f"Keys: {chunks[0].keys()}")
+        #log.info(f"Chunks as Dict {chunks[-1]['text']}")
+        #log.info(f"Chunks as Dict: {chunks[1]['text']}")
         log.info(f"ChunkLoader: loaded {len(chunks)} chunks from {self.path.name}")
         return chunks
     

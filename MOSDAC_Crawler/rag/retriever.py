@@ -92,7 +92,9 @@ class Retriever:
 
         # ── Step 3: FAISS retrieval ───────────────────────────
         raw_results: List[Tuple[dict, float]] = self.store.search(
-            q_vec, top_k=top_k * 2, min_score=RAG_MIN_SCORE
+            q_vec, 
+            top_k=top_k * 2, 
+            min_score=RAG_MIN_SCORE
         )
 
         # ── Step 4: Graph enrichment ──────────────────────────
