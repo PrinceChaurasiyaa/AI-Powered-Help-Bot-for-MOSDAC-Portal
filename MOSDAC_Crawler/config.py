@@ -486,7 +486,7 @@ RAG_PRIORITY_TYPES     = ["FAQ", "MissionSection", "Mission",
 
 # ── Claude API settings ───────────────────────────────────────
 # Model to use for answer generation
-RAG_CLAUDE_MODEL       = "claude-opus-4-5"
+RAG_GROQ_MODEL       = "llama-3.3-70b-versatile"
 RAG_MAX_TOKENS         = 1024
 RAG_TEMPERATURE        = 0.1    # Low temp = factual, consistent answers
 

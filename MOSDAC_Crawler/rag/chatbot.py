@@ -27,11 +27,14 @@ The Chatbot class manages:
 import os
 from typing import Generator, List, Optional
 from langchain_ollama import ChatOllama
+from langchain_groq import ChatGroq        
 from langchain_core.messages import HumanMessage, SystemMessage
 
+from dotenv import load_dotenv
+load_dotenv()
 
 from config import (
-    RAG_CLAUDE_MODEL,
+    RAG_GROQ_MODEL,
     RAG_HISTORY_MAX_TURNS,
     RAG_MAX_TOKENS,
     RAG_TEMPERATURE,
@@ -90,50 +93,21 @@ class MOSDACChatbot:
         self,
         retriever:  Retriever,
         api_key:    Optional[str] = None,
-        model:      str           = RAG_CLAUDE_MODEL,
+        model:      str           = RAG_GROQ_MODEL,
         max_tokens: int           = RAG_MAX_TOKENS,
         temperature: float        = RAG_TEMPERATURE,
     ):
         self.retriever   = retriever
         self.model       = model
-        self._llm = ChatOllama(model="mistral:7b")
+        self._llm = ChatGroq(
+            model="llama-3.3-70b-versatile",
+            temperature=temperature,
+            api_key=os.getenv("GROQ_API_KEY")
+            )
         self.max_tokens  = max_tokens
         self.temperature = temperature
         self._history:   List[dict] = []
-        #self._client     = None
 
-        # Resolve API key
-        # self._api_key = (
-        #     api_key
-        #     or os.environ.get("ANTHROPIC_API_KEY")
-        #     or self._load_from_env_file()
-        # )
-
-    # ── API client ─────────────────────────────────────────────
-
-    # def _get_client(self):
-    #     """Lazy-init the Anthropic client."""
-    #     if self._client is not None:
-    #         return self._client
-
-    #     try:
-    #         import anthropic
-    #     except ImportError:
-    #         raise ImportError(
-    #             "anthropic not installed.\n"
-    #             "Run: pip install anthropic"
-    #         )
-
-    #     if not self._api_key:
-    #         raise ValueError(
-    #             "No Anthropic API key found.\n"
-    #             "Set ANTHROPIC_API_KEY environment variable, "
-    #             "or create a .env file with:\n"
-    #             "  ANTHROPIC_API_KEY=sk-ant-..."
-    #         )
-
-    #     self._client = anthropic.Anthropic(api_key=self._api_key)
-    #     return self._client
 
     def _load_from_env_file(self) -> Optional[str]:
         """Try to load API key from .env file in project root."""
@@ -206,53 +180,6 @@ class MOSDACChatbot:
             fallback=fallback,
         )
 
-    # def ask_stream(self, query: str) -> Generator[str, None, None]:
-    #     """
-    #     Streaming version of ask().
-    #     Yields text tokens as they arrive from Claude.
-    #     After the stream completes, history is updated.
-
-    #     Usage:
-    #         for token in bot.ask_stream("What is MOSDAC?"):
-    #             print(token, end="", flush=True)
-    #     """
-    #     query  = query.strip()
-    #     chunks = self.retriever.retrieve(query)
-    #     fallback = not bool(chunks)
-
-    #     if fallback:
-    #         chunks = self.retriever.keyword_search(query, top_k=3)
-
-    #     history  = self._get_trimmed_history()
-    #     messages = (
-    #         build_no_context_message(query, history)
-    #         if (fallback and not chunks)
-    #         else build_messages(query, chunks, history)
-    #     )
-
-    #     #client     = self._get_client()
-    #     full_text  = []
-    #     lc_messages = []
-
-    #     for m in messages:
-    #         if m["role"] == "system":
-    #             lc_messages.append(SystemMessage(content=m["content"]))
-    #         elif m["role"] == "user":
-    #             lc_messages.append(HumanMessage(content=m["content"]))
-    #         elif m["role"] == "assistant":
-    #             lc_messages.append(HumanMessage(content=m["content"]))
-
-    #     for chunk in self._llm.stream(lc_messages):
-    #         full_text.append(chunk.content)
-    #         yield chunk.content
-
-    #     answer = "".join(full_text)
-
-    #     answer = "".join(full_text)
-    #     self._history.append({"role": "user",      "content": query})
-    #     self._history.append({"role": "assistant",  "content": answer})
-    #     self._trim_history()
-
     def ask_stream(self, query: str):
         query  = query.strip()
         chunks = self.retriever.retrieve(query)
@@ -291,28 +218,6 @@ class MOSDACChatbot:
         self._history.append({"role": "user", "content": query})
         self._history.append({"role": "assistant", "content": answer})
         self._trim_history()
-
-    # ── Claude API call ────────────────────────────────────────
-
-    # def _call_claude(self, messages: List[dict]) -> str:
-    #     """Non-streaming Claude API call."""
-    #     client = self._get_client()
-    #     try:
-    #         response = client.messages.create(
-    #             model=self.model,
-    #             max_tokens=self.max_tokens,
-    #             temperature=self.temperature,
-    #             system=SYSTEM_PROMPT,
-    #             messages=messages,
-    #         )
-    #         return response.content[0].text
-    #     except Exception as exc:
-    #         log.error(f"Claude API error: {exc}")
-    #         return (
-    #             "I encountered an error connecting to the AI service. "
-    #             f"Error: {exc}\n\n"
-    #             "Please check your ANTHROPIC_API_KEY and try again."
-    #         )
     
     def _call_ollama(self, messages):
         lc_messages = []

@@ -16,10 +16,6 @@ Run:
     python chatbot_main.py --mode ask "query"  # Single question, no loop
     python chatbot_main.py --mode report       # Print index stats
 
-API Key:
-    Set ANTHROPIC_API_KEY environment variable, OR
-    Create a .env file in this directory:
-        ANTHROPIC_API_KEY=sk-ant-api03-...
 ─────────────────────────────────────────────────────────────────────────────
 """
 

@@ -4,3 +4,6 @@ testing.py
 *__pycache__
 output
 data.csv
+.env
+ui.html
+*ipynb
