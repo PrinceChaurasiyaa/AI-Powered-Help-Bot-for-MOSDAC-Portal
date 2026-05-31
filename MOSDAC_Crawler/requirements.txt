@@ -42,13 +42,31 @@
 
 
 
-streamlit>=1.35.0
-langgraph>=0.2.0
-langchain-groq>=0.1.0
-langchain-core>=0.2.0
-sentence-transformers==3.0.1
-faiss-cpu==1.8.0
-python-dotenv>=1.0
+# streamlit>=1.35.0
+# langgraph>=0.2.0
+# langchain-groq>=0.1.0
+# langchain-core>=0.2.0
+# sentence-transformers==3.0.1
+# faiss-cpu==1.8.0
+# python-dotenv>=1.0
 
-pandas
+# pandas
+# numpy
+
+streamlit
+langchain
+langchain-core
+langchain-groq
+langgraph
+langgraph-checkpoint
+langgraph-checkpoint-sqlite
+faiss-cpu
 numpy
+pandas
+sentence-transformers
+python-dotenv
+networkx
+scikit-learn
+pydantic
+groq
+sqlalchemy
